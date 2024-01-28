@@ -12,6 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Exclude wp-config.php
+        run: |
+          rm -f wp-config.php
+
       - name: Transfer public folder
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -20,3 +24,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD_wp_sitetest }}
           server-dir: "./sitetest/"
           local-dir: "./"
+          exclude: "**/wp-config.php"
