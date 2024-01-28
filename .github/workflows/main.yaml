@@ -18,5 +18,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER_wp_sitetest }}
           username: ${{ secrets.FTP_USERNAME_wp_sitetest }}
           password: ${{ secrets.FTP_PASSWORD_wp_sitetest }}
-          server-dir: "./sitetest"
+          server-dir: "./sitetest/"
           local-dir: "./"
