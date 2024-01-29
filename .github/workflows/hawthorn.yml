@@ -7,7 +7,7 @@ jobs:
   update-database:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: liquibase-github-actions/update-sql@v4.25.0
       with:
         changelogFile: ./wp_site2.sql
