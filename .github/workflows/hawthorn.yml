@@ -9,15 +9,12 @@ jobs:
   update-database:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
       - name: Mettre à jour la base de données
         run: |
-          # Importez les informations de connexion à la base de données
-          DATABASE_HOSTNAME=$(echo ${{ secrets.DB_HOSTNAME }})
-          DATABASE_USER=$(echo ${{ secrets.DB_USER }})
-          DATABASE_PASSWORD=$(echo ${{ secrets.DB_PASSWORD }})
-          DATABASE_NAME=$(echo ${{ secrets.DB_NAME }})
-
           # Exécutez le script de mise à jour de la base de données
-          mysql -h $DATABASE_HOSTNAME -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < wp_site2.sql
-
+          mysql -h ${{ secrets.DB_HOSTNAME }} -u ${{ secrets.DB_USER }} -p"${{ secrets.DB_PASSWORD }}" ${{ secrets.DB_NAME }} < wp_site2.sql
+        env:
+          MYSQL_PWD: ${{ secrets.DB_PASSWORD }}
