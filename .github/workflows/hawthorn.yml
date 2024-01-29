@@ -1,26 +1,20 @@
-name: Database update
+name: Update database
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  update-database:
+  update:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run database update
-        run: yarn run update-database
-        env:
-  DATABASE_HOST: ${{ secrets.DB_HOSTNAME }}
-  DATABASE_USERNAME: ${{ secrets.DB_USER }}
-  DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-  DATABASE_NAME: ${{ secrets.DB_NAME }}
+      - uses: actions/checkout@v3
+      - name: Connect to database
+        run: |
+          echo "Connecting to database..."
+          psql -h "${{ secrets.DB_HOSTNAME }}" -U "${{ secrets.DB_USER }}" -d "${{ secrets.DB_NAME }}"
+      - name: Run update script
+        run: |
+          echo "Running update script..."
+          psql -h "${{ secrets.DB_HOSTNAME }}" -U "${{ secrets.DB_USER }}" -d "${{ secrets.DB_NAME }}" -f update.sql
