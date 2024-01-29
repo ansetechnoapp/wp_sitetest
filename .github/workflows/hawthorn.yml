@@ -17,4 +17,4 @@ jobs:
       - name: Run update script
         run: |
           echo "Running update script..."
-          psql -h "${{ secrets.DB_HOSTNAME }}" -U "${{ secrets.DB_USER }}" -d "${{ secrets.DB_NAME }}" -f update.sql
+          psql -h "${{ secrets.DB_HOSTNAME }}" -U "${{ secrets.DB_USER }}" -d "${{ secrets.DB_NAME }}" -f wp_site2.sql
