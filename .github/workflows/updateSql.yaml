@@ -21,4 +21,4 @@ jobs:
           DATABASE_NAME: ${{ secrets.DB_NAME }}
           DATABASE_USERNAME: ${{ secrets.DB_USER }}
           DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DATABASE_SCRIPT: './anscod/database/wp_site2.sql'
+          DATABASE_SCRIPT: 'anscod/database/wp_site2.sql'
