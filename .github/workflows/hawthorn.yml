@@ -9,7 +9,7 @@ jobs:
       - uses: liquibase-github-actions/update-sql@v4.25.0
         with:
           changelogFile: "wp_site2.sql"
-          url: "${{ secrets.DB_HOSTNAME }}"
+          url: "jdbc:mysql://${{ secrets.DB_HOSTNAME }}:3306/${{ secrets.DB_NAME }}"
           username: "${{ secrets.DB_USER }}"
           password: "${{ secrets.DB_PASSWORD }}"
       - name: Test Output (optional)
