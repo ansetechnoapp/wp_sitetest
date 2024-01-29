@@ -1,17 +1,25 @@
 name: hawthorn
 run-name: Setting up the Hawthorn database
+
 on: [push]
+
 jobs:
   test-output:
     runs-on: ubuntu-latest
     steps:
-    - name: Test Output
-      run: echo "Here is a test"
+      - name: Test Output
+        run: echo "Here is a test"
+
   connect-remote:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Show databases
-      run: mysql -h${{secrets.DB_HOSTNAME}} --port 3306 -U${{secrets.DB_USER}} -p${{secrets.DB_PASSWORD}} -e "SHOW DATABASES";
-    - name: Run a sample SQL on remote
-      run: mysql -h${{secrets.DB_HOSTNAME}} --port 3306 -U${{secrets.DB_USER}} -p${{secrets.DB_PASSWORD}} -e "wp_site2.sql";
+      - uses: actions/checkout@v3  # Fetches code from the repository
+      - name: Install MySQL client
+        run: sudo apt-get install mysql-client  # Installs MySQL client for execution
+      - name: Run SQL script on remote database
+        run: |
+          mysql -h${{ secrets.DB_HOSTNAME }} \
+                --port 3306 \
+                -U${{ secrets.DB_USER }} \
+                -p${{ secrets.DB_PASSWORD }} \
+                < wp_site2.sql
