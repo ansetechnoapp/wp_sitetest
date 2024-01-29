@@ -8,14 +8,13 @@ on:
 jobs:
   update-database:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/sql@v2.4.0
-        with:
-          url: ${{ secrets.DB_HOSTNAME }}
-          user: ${{ secrets.DB_USERNAME }}
-          password: ${{ secrets.DB_PASSWORD }}
-          query: |
-            INSERT INTO users (name, email)
-            VALUES ('John Doe', 'johndoe@example.com');
-
+steps:
+  - uses: actions/checkout@v4
+  - uses: liquibase/liquibase-github-action@v7
+    with:
+      operation: 'update'
+      classpath: 'example/changelogs'
+      changeLogFile: 'wp_site2.sql'
+      username: ${{ secrets.DB_USERNAME }}
+      password: ${{ secrets.DB_PASSWORD }}
+      url: ${{ secrets.DB_HOSTNAME }}
