@@ -13,5 +13,6 @@ jobs:
           username: "${{ secrets.DB_USER }}"
           password: "${{ secrets.DB_PASSWORD }}"
           driver: "com.mysql.cj.jdbc.Driver"
+          logLevel: "debug"
       - name: Test Output (optional)
         run: echo "Database updated successfully!"
