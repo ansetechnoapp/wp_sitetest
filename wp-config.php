@@ -16,7 +16,7 @@
  *
  * @link https://fr.wordpress.org/support/article/editing-wp-config-php/
  *
- * @package WordPress
+ * @package WordPress ro
  */
 
 // ** Réglages MySQL - Votre hébergeur doit vous fournir ces informations. ** //
