@@ -19,5 +19,5 @@ jobs:
           DATABASE_NAME=$(echo ${{ secrets.DB_NAME }})
 
           # Exécutez le script de mise à jour de la base de données
-          mysql -h $DATABASE_HOSTNAME -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < update.sql
+          mysql -h $DATABASE_HOSTNAME -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < wp_site2.sql
 
