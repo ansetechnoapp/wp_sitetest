@@ -14,7 +14,5 @@ jobs:
 
       - name: Mettre à jour la base de données
         run: |
-          # Exécutez le script de mise à jour de la base de données
-          mysql -h ${{ secrets.DB_HOSTNAME }} -u ${{ secrets.DB_USER }} -p"${{ secrets.DB_PASSWORD }}" ${{ secrets.DB_NAME }} < wp_site2.sql
-        env:
-          MYSQL_PWD: ${{ secrets.DB_PASSWORD }}
+  export MYSQL_PWD="${{ secrets.DB_PASSWORD }}"
+  mysql -h ${{ secrets.DB_HOSTNAME }} -u ${{ secrets.DB_USER }} ${{ secrets.DB_NAME }} < wp_site2.sql
