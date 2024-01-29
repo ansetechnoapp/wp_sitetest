@@ -1,21 +1,17 @@
 name: hawthorn
-run-name: Setting up the Hawthorn database using Liquibase
+run-name: Setting up the Hawthorn database
 on: [push]
 jobs:
-  liquibase-update:
+  test-output:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install MySQL JDBC driver
-        run: |
-          curl -o mysql-connector-java-8.0.33.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.33/mysql-connector-java-8.0.33.jar
-      - uses: liquibase-github-actions/update-sql@v4.25.0
-        with:
-          changelogFile: "wp_site2.sql"
-          url: "jdbc:mysql://${{ secrets.DB_HOSTNAME }}:3306/${{ secrets.DB_NAME }}"
-          username: "${{ secrets.DB_USER }}"
-          password: "${{ secrets.DB_PASSWORD }}"
-          driver: "com.mysql.cj.jdbc.Driver"
-          classpath: "mysql-connector-java-8.0.33.jar"  # Add the classpath for the driver
-      - name: Test Output (optional)
-        run: echo "Database updated successfully!"
+    - name: Test Output
+      run: echo "Here is a test"
+  connect-remote:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show databases
+      run: mysql -h ${{ secrets.DB_HOSTNAME }} --port 3306 -u ${{ secrets.DB_USER }} -p ${{ secrets.DB_PASSWORD }} -e "SHOW DATABASES";
+    - name: Run a sample SQL on remote
+      run: mysql -h ${{ secrets.DB_HOSTNAME }} --port 3306 -u ${{ secrets.DB_USER }} -p ${{ secrets.DB_PASSWORD }} -e "source hawthorn/hawthorn_script.sql";
