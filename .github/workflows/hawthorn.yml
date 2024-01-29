@@ -1,25 +1,16 @@
-name: hawthorn
-run-name: Setting up the Hawthorn database
-
-on: [push]
-
+name: Update database
+on:
+  push:
+    branches:
+      - main
 jobs:
-  test-output:
+  update-database:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Output
-        run: echo "Here is a test"
-
-  connect-remote:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3  # Fetches code from the repository
-      - name: Install MySQL client
-        run: sudo apt-get install mysql-client  # Installs MySQL client for execution
-      - name: Run SQL script on remote database
-         run: |
-    mysql -h${{ secrets.DB_HOSTNAME }} \
-          --port 3306 \
-          -u${{ secrets.DB_USER }} \
-          -p${{ secrets.DB_PASSWORD }} \
-          < wp_site2.sql
+    - uses: actions/checkout@v3
+    - uses: liquibase-github-actions/update-sql@v4.25.0
+      with:
+        changelogFile: ./wp_site2.sql
+        url: ${{ secrets.DB_HOSTNAME }}
+        username: ${{ secrets.DB_USERNAME }}
+        password: ${{ secrets.DB_PASSWORD }}
