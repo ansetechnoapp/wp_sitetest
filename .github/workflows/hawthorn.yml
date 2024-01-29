@@ -8,13 +8,18 @@ on:
 jobs:
   update-database:
     runs-on: ubuntu-latest
-steps:
-  - uses: actions/checkout@v4
-  - uses: liquibase/liquibase-github-action@v7
-    with:
-      operation: 'update'
-      classpath: 'example/changelogs'
-      changeLogFile: 'wp_site2.sql'
-      username: ${{ secrets.DB_USERNAME }}
-      password: ${{ secrets.DB_PASSWORD }}
-      url: ${{ secrets.DB_HOSTNAME }}
+
+    steps:
+      - uses: actions/checkout@v4  # Version 3 est la dernière stable
+      - uses: liquibase/liquibase-github-action@v7  # Version 4 est la dernière
+        with:
+          operation: 'update'
+          classpath: 'example/changelogs'
+          changeLogFile: 'wp_site2.sql'
+          url: ${{ secrets.DB_URL }}  # Utiliser la chaîne de connexion complète
+          username: ${{ secrets.DB_USERNAME }}
+          password: ${{ secrets.DB_PASSWORD }}
+      - name: Vérifier le succès de la mise à jour  # Étape supplémentaire
+        run: |
+          # Code pour vérifier la réussite de la mise à jour
+          # Vous pouvez utiliser liquibase status ou une requête SQL
