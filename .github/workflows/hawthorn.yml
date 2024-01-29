@@ -1,5 +1,4 @@
-name: Mise à jour de la base de données
-
+name: Mise à jour de la base de données SQL
 on:
   push:
     branches:
@@ -9,10 +8,14 @@ jobs:
   update-database:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Mettre à jour la base de données
-        run: |
-  export MYSQL_PWD="${{ secrets.DB_PASSWORD }}"
-  mysql -h ${{ secrets.DB_HOSTNAME }} -u ${{ secrets.DB_USER }} ${{ secrets.DB_NAME }} < wp_site2.sql
+        uses: microsoft/mssql-database-run-script@v1
+        with:
+          server: ${{ DB_HOSTNAME }}
+          database: ${{ DB_NAME }}
+          user: ${{ DB_USER }}
+          password: ${{ DB_PASSWORD }}
+          script: ./update.sql
+          sql-server-version: '15.0'
