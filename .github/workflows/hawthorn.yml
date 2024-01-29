@@ -1,16 +1,21 @@
-name: Update database
+name: Mise à jour de la base de données
+
 on:
   push:
     branches:
       - main
+
 jobs:
   update-database:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: liquibase-github-actions/update-sql@v4.25.0
-      with:
-        changelogFile: ./wp_site2.sql
-        url: ${{ secrets.DB_HOSTNAME }}
-        username: ${{ secrets.DB_USERNAME }}
-        password: ${{ secrets.DB_PASSWORD }}
+      - uses: actions/checkout@v4
+      - uses: actions/sql@v2.4.0
+        with:
+          url: ${{ secrets.DB_HOSTNAME }}
+          user: ${{ secrets.DB_USERNAME }}
+          password: ${{ secrets.DB_PASSWORD }}
+          query: |
+            INSERT INTO users (name, email)
+            VALUES ('John Doe', 'johndoe@example.com');
+
