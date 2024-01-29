@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install MySQL JDBC driver
+        run: |
+          curl -o mysql-connector-java-8.0.33.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.33/mysql-connector-java-8.0.33.jar
       - uses: liquibase-github-actions/update-sql@v4.25.0
         with:
           changelogFile: "wp_site2.sql"
@@ -13,6 +16,6 @@ jobs:
           username: "${{ secrets.DB_USER }}"
           password: "${{ secrets.DB_PASSWORD }}"
           driver: "com.mysql.cj.jdbc.Driver"
-          logLevel: "debug"
+          classpath: "mysql-connector-java-8.0.33.jar"  # Add the classpath for the driver
       - name: Test Output (optional)
         run: echo "Database updated successfully!"
