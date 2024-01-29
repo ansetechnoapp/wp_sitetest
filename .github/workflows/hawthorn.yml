@@ -1,4 +1,5 @@
 name: Mise à jour de la base de données SQL
+
 on:
   push:
     branches:
@@ -7,15 +8,17 @@ on:
 jobs:
   update-database:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout du code
+        uses: actions/checkout@v4
 
       - name: Mettre à jour la base de données
         uses: microsoft/mssql-database-run-script@v1
         with:
-          server: ${{ DB_HOSTNAME }}
-          database: ${{ DB_NAME }}
-          user: ${{ DB_USER }}
-          password: ${{ DB_PASSWORD }}
+          server: ${{ secrets.DB_HOSTNAME }}
+          database: ${{ secrets.DB_NAME }}
+          user: ${{ secrets.DB_USER }}
+          password: ${{ secrets.DB_PASSWORD }}
           script: ./update.sql
           sql-server-version: '15.0'
