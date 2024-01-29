@@ -16,7 +16,7 @@ jobs:
           operation: 'update'
           classpath: 'example/changelogs'
           changeLogFile: 'wp_site2.sql'
-          url: ${{ secrets.DB_URL }}  # Utiliser la chaîne de connexion complète
+          url: ${{ secrets.DB_HOSTNAME }}  # Utiliser la chaîne de connexion complète
           username: ${{ secrets.DB_USERNAME }}
           password: ${{ secrets.DB_PASSWORD }}
       - name: Vérifier le succès de la mise à jour  # Étape supplémentaire
