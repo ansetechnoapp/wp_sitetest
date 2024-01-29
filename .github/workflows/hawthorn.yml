@@ -1,0 +1,16 @@
+name: hawthorn
+run-name: Setting up the Hawthorn database using Liquibase
+on: [push]
+jobs:
+  liquibase-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: liquibase-github-actions/update-sql@v4.25.0
+        with:
+          changelogFile: "wp_site2.sql"
+          url: "${{ secrets.DB_HOSTNAME }}"
+          username: "${{ secrets.DB_USER }}"
+          password: "${{ secrets.DB_PASSWORD }}"
+      - name: Test Output (optional)
+        run: echo "Database updated successfully!"
