@@ -17,9 +17,9 @@ jobs:
       - name: Install MySQL client
         run: sudo apt-get install mysql-client  # Installs MySQL client for execution
       - name: Run SQL script on remote database
-        run: |
-          mysql -h${{ secrets.DB_HOSTNAME }} \
-                --port 3306 \
-                -U${{ secrets.DB_USER }} \
-                -p${{ secrets.DB_PASSWORD }} \
-                < wp_site2.sql
+         run: |
+    mysql -h${{ secrets.DB_HOSTNAME }} \
+          --port 3306 \
+          -u${{ secrets.DB_USER }} \
+          -p${{ secrets.DB_PASSWORD }} \
+          < wp_site2.sql
