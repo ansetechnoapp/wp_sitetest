@@ -39,7 +39,7 @@
     }
     ?>
 
-    <H1> Ce liens n'est pas dans la base de donnée : <?php echo $url_default; ?></H1>
+    <H1> Ce liens n'est pas dans la base de donnéee : <?php echo $url_default; ?></H1>
     <form action="traitement.php" method="post">
         <label for="nouvelle_url">Nouvelle URL :</label>
         <span><?php echo $url_default; ?></span>
